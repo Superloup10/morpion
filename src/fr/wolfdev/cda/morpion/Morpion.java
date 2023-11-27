@@ -35,4 +35,26 @@ public class Morpion {
             System.out.println();
         }
     }
+
+    public static boolean isWinner(char[][] grid, char player) {
+        for(int i = 0; i < grid.length; i++) {
+            if((grid[i][0] == player && grid[i][1] == player && grid[i][2] == player) ||
+                    (grid[0][i] == player && grid[1][i] == player && grid[2][i] == player)) {
+                return true;
+            }
+        }
+        return (grid[0][0] == player && grid[1][1] == player && grid[2][2] == player) ||
+                (grid[0][2] == player && grid[1][1] == player && grid[2][0] == player);
+    }
+
+    public static boolean isTie(char[][] grid) {
+        for(int line = 0; line < grid.length; line++) {
+            for(int column = 0; column < grid[line].length; column++) {
+                if(grid[line][column] == ' ') {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
