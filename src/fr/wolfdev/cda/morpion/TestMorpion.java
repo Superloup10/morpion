@@ -3,8 +3,28 @@ package fr.wolfdev.cda.morpion;
 import java.util.Scanner;
 
 public class TestMorpion {
-    public static void main(String[] args) {
-        final Scanner sc = new Scanner(System.in);
+    
+    public static int saisirChoixJoueur (int joueur){
+
+        System.out.println("Menu : ");
+        System.out.println("1 : Un joueur");
+        System.out.println("2 : Deux joueurs");
+        System.out.println("Quel est votre choix :");
+        Scanner scanner = new Scanner(System.in);
+        joueur = scanner.nextInt();
+        System.err.println("Vous avez choisi le mode :" + joueur);
+
+        return joueur;
+    } 
+
+	
+	public static void main(String[] args) {
+        
+        int ChoixContinue = 0;
+
+        saisirChoixJoueur(ChoixContinue);
+    	
+    	final Scanner sc = new Scanner(System.in);
         char[][] grid = new char[3][3];
         Morpion.initializeGrid(grid);
         boolean isRun = true;
