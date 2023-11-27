@@ -29,8 +29,9 @@ public class Morpion {
 
     public static void printGrid(char[][] grid) {
         for(int line = 0; line < grid.length; line++) {
+        	System.out.print("|");
             for(int column = 0; column < grid[line].length; column++) {
-                System.out.print(grid[line][column]);
+                System.out.print(grid[line][column] + "|");
             }
             System.out.println();
         }
