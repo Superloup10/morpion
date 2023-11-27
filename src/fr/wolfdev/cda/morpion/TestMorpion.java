@@ -5,5 +5,6 @@ public class TestMorpion {
         char[][] grid = new char[3][3];
         Morpion.initializeGrid(grid);
         Morpion.fillGridWithUserOneValue(grid, "00");
+        Morpion.printGrid(grid);
     }
 }
