@@ -64,28 +64,25 @@ public class Morpion {
             }
             case "moyen": { // Ordinateur défensif
                 // Si l'utilisateur a l'un des quatre coins, mais pas les autres, on prend la case du centre si elle est vide
-                if(grid[1][1] == ' ' && ((grid[0][0] == 'X') ^ (grid[0][2] == 'X') ^ (grid[2][0] == 'X') ^ (grid[2][2] == 'X'))) {
+                if(grid[1][1] == ' ' && hasOneCornerOccupied(grid)) {
                     fillGridWithUserTwoValue(grid, "11");
                 }
-                else {
-                    if(blockLineOrColumnOrDiagonal(grid)) {
-                        // L'ordinateur a joué, aucune action supplémentaire nécessaire
-                    }
-                    else if(grid[1][1] == ' ') {
-                        // La case centrale est disponible, jouer au centre
-                        fillGridWithUserTwoValue(grid, "11");
-                    }
-                    else {
-                        // Si aucune action spécifique n'est prise, jouer aléatoirement
-                        randomComputerHit(grid);
-                    }
+                else if(!completeLineOrColumnOrDiagonal(grid, 'X')) {
+                    randomComputerHit(grid);
                 }
 
                 break;
             }
             case "difficile": {
+                agressiveComputerHit(grid);
                 break;
             }
+        }
+    }
+
+    private static void agressiveComputerHit(char[][] grid) {
+        if(!completeLineOrColumnOrDiagonal(grid, 'O') && !completeLineOrColumnOrDiagonal(grid, 'X')) {
+            randomComputerHit(grid);
         }
     }
 
@@ -105,46 +102,38 @@ public class Morpion {
         while(!isComputerHit);
     }
 
-    private static boolean blockLineOrColumnOrDiagonal(char[][] grid) {
+    private static boolean completeLineOrColumnOrDiagonal(char[][] grid, char symbol) {
         for(int i = 0; i < 3; i++) {
-            if(blockIfNecessary(grid, i, 0, i, 1, i, 2)) {
+            if(completeIfPossible(grid, i, 0, i, 1, i, 2, symbol) ||
+                    completeIfPossible(grid, 0, i, 1, i, 2, i, symbol)) {
                 return true;
             }
         }
 
-        for(int i = 0; i < 3; i++) {
-            if(blockIfNecessary(grid, 0, i, 1, i, 2, i)) {
-                return true;
-            }
-        }
-
-        if(blockIfNecessary(grid, 0, 0, 1, 1, 2, 2)) {
-            return true;
-        }
-
-        if(blockIfNecessary(grid, 0, 2, 1, 1, 2, 0)) {
-            return true;
-        }
-
-        return false;
+        return completeIfPossible(grid, 0, 0, 1, 1, 2, 2, symbol) ||
+                completeIfPossible(grid, 0, 2, 1, 1, 2, 0, symbol);
     }
 
-    private static boolean blockIfNecessary(char[][] grid, int line1, int column1, int line2, int column2, int line3, int column3) {
-        if(grid[line1][column1] == ' ' && grid[line2][column2] == 'X' && grid[line3][column3] == 'X') {
+    private static boolean completeIfPossible(char[][] grid, int line1, int column1, int line2, int column2, int line3, int column3, char symbol) {
+        if(grid[line1][column1] == ' ' && grid[line2][column2] == symbol && grid[line3][column3] == symbol) {
             grid[line1][column1] = 'O';
             return true;
         }
-        else if(grid[line2][column2] == ' ' && grid[line1][column1] == 'X' && grid[line3][column3] == 'X') {
+        else if(grid[line2][column2] == ' ' && grid[line1][column1] == symbol && grid[line3][column3] == symbol) {
             grid[line2][column2] = 'O';
             return true;
         }
-        else if(grid[line3][column3] == ' ' && grid[line1][column1] == 'X' && grid[line2][column2] == 'X') {
+        else if(grid[line3][column3] == ' ' && grid[line1][column1] == symbol && grid[line2][column2] == symbol) {
             grid[line3][column3] = 'O';
             return true;
         }
         else {
             return false;
         }
+    }
+
+    private static boolean hasOneCornerOccupied(char[][] grid) {
+        return ((grid[0][0] == 'X') ^ (grid[2][2] == 'X') ^ (grid[0][2] == 'X') ^ (grid[2][0] == 'X'));
     }
 
     public static boolean isWinner(char[][] grid, char player) {
