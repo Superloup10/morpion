@@ -27,8 +27,6 @@ public class TestMorpion {
     } 
 	
 	public static void main(String[] args) {
-        
-		int Continue;
 		
 		int nombreJoueur = saisirChoixJoueur();
 
