@@ -1,10 +1,40 @@
 package fr.wolfdev.cda.morpion;
 
+import java.util.InputMismatchException;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Morpion {
+    public static int saisirChoixJoueur(Scanner sc) {
+        int choixJoueur = 0;
+        do {
+            try {
+                System.out.println("Menu : ");
+                System.out.println("1 : Un joueur");
+                System.out.println("2 : Deux joueurs");
+                System.out.println("Quel est votre choix :");
+                choixJoueur = sc.nextInt();
+                if(choixJoueur == 1) {
+                    System.out.println("Vous avez le choisi le mode 1 joueur");
+                }
+                else if(choixJoueur == 2) {
+                    System.out.println("Vous avez choisi le mode 2 joueurs");
+                }
+                else {
+                    System.out.println("Mauvais numéro");
+                }
+            }
+            catch(InputMismatchException e) {
+                System.err.println("Vous avez rentré autre chose qu'un entier");
+                sc.nextLine();
+            }
+        }
+        while(choixJoueur < 1 || choixJoueur > 2);
+
+        return choixJoueur;
+    }
+
     public static void fillGrid(char[][] grid, char value) {
         for(int line = 0; line < grid.length; line++) {
             for(int column = 0; column < grid[line].length; column++) {
@@ -13,17 +43,17 @@ public class Morpion {
         }
     }
 
-    private static void fillGridWithValue(char[][] grid, String userPos, char valueChar) {
+    private static void fillGridWithValue(char[][] grid, String userPos, char valueChar) throws ArrayIndexOutOfBoundsException {
         int line = Integer.parseInt(String.valueOf(userPos.charAt(0)));
         int column = Integer.parseInt(String.valueOf(userPos.charAt(1)));
         grid[line][column] = valueChar;
     }
 
-    public static void fillGridWithUserOneValue(char[][] grid, String userPos) {
+    public static void fillGridWithUserOneValue(char[][] grid, String userPos) throws ArrayIndexOutOfBoundsException {
         fillGridWithValue(grid, userPos, 'X');
     }
 
-    public static void fillGridWithUserTwoValue(char[][] grid, String userPos) {
+    public static void fillGridWithUserTwoValue(char[][] grid, String userPos) throws ArrayIndexOutOfBoundsException {
         fillGridWithValue(grid, userPos, 'O');
     }
 
