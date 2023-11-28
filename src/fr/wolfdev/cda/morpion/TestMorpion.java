@@ -81,7 +81,11 @@ public class TestMorpion {
 			}
 
             /* TEST: Use only for test
-            System.out.print("Joueur 2 : donnez la position où vous voulez ajouter votre coup : ");
+                System.out.println("Au tour de l'ordinateur de jouer : ");
+                Morpion.setComputerHit(grid, difficulty);
+                Morpion.printGrid(grid);
+
+                System.out.print("Joueur 2 : donnez la position où vous voulez ajouter votre coup : ");
                 String user2Pos = sc.next();
                 Morpion.fillGridWithUserTwoValue(grid, user2Pos);
                 Morpion.printGrid(grid);

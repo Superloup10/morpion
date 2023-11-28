@@ -1,6 +1,7 @@
 package fr.wolfdev.cda.morpion;
 
 import java.util.Objects;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Morpion {
@@ -58,6 +59,7 @@ public class Morpion {
     public static void setComputerHit(char[][] grid, String difficulty) {
         switch(difficulty) {
             case "facile": {
+                randomComputerHit(grid);
                 break;
             }
             case "moyen": { // Ordinateur défensif
@@ -67,6 +69,22 @@ public class Morpion {
                 break;
             }
         }
+    }
+
+    private static void randomComputerHit(char[][] grid) {
+        final Random rd = new Random();
+        int line;
+        int column;
+        boolean isComputerHit = false;
+        do {
+            line = rd.nextInt(0, grid.length);
+            column = rd.nextInt(0, grid[line].length);
+            if(grid[line][column] == ' ') {
+                fillGridWithUserTwoValue(grid, ("" + line) + ("" + column));
+                isComputerHit = true;
+            }
+        }
+        while(!isComputerHit);
     }
     public static boolean isWinner(char[][] grid, char player) {
         for(int i = 0; i < grid.length; i++) {
