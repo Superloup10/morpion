@@ -33,6 +33,7 @@ public class TestMorpion {
 		final Scanner sc = new Scanner(System.in);
 		char[][] grid = new char[3][3];
 		Morpion.initializeGrid(grid);
+		String difficulty = Morpion.setDifficulty(sc);
 		boolean isRun = true;
 		String player1 = "";
 		String player2 = "";
@@ -80,7 +81,7 @@ public class TestMorpion {
 			}
 
             /* TEST: Use only for test
-                System.out.p²rint("Joueur 2 : donnez la position où vous voulez ajouter votre coup : ");
+            System.out.print("Joueur 2 : donnez la position où vous voulez ajouter votre coup : ");
                 String user2Pos = sc.next();
                 Morpion.fillGridWithUserTwoValue(grid, user2Pos);
                 Morpion.printGrid(grid);
@@ -101,5 +102,6 @@ public class TestMorpion {
 			}
 		while(isRun);
 	
+
     }
 }

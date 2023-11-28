@@ -1,5 +1,8 @@
 package fr.wolfdev.cda.morpion;
 
+import java.util.Objects;
+import java.util.Scanner;
+
 public class Morpion {
     public static void fillGrid(char[][] grid, char value) {
         for(int line = 0; line < grid.length; line++) {
@@ -29,7 +32,7 @@ public class Morpion {
 
     public static void printGrid(char[][] grid) {
         for(int line = 0; line < grid.length; line++) {
-        	System.out.print("|");
+            System.out.print("|");
             for(int column = 0; column < grid[line].length; column++) {
                 System.out.print(grid[line][column] + "|");
             }
@@ -37,6 +40,34 @@ public class Morpion {
         }
     }
 
+    public static String setDifficulty(Scanner sc) {
+        String difficulty;
+        boolean difficultyChoice;
+        do {
+            System.out.print("Choisissez votre mode de difficulté (facile, moyen, difficile) : ");
+            difficulty = sc.next();
+            difficultyChoice = Objects.equals(difficulty, "facile") ^ Objects.equals(difficulty, "moyen") ^ Objects.equals(difficulty, "difficile");
+            if(!difficultyChoice) {
+                System.out.println("Merci d'entrez un choix valide !");
+            }
+        }
+        while(!difficultyChoice);
+        return difficulty;
+    }
+
+    public static void setComputerHit(char[][] grid, String difficulty) {
+        switch(difficulty) {
+            case "facile": {
+                break;
+            }
+            case "moyen": { // Ordinateur défensif
+                break;
+            }
+            case "difficile": {
+                break;
+            }
+        }
+    }
     public static boolean isWinner(char[][] grid, char player) {
         for(int i = 0; i < grid.length; i++) {
             if((grid[i][0] == player && grid[i][1] == player && grid[i][2] == player) ||
